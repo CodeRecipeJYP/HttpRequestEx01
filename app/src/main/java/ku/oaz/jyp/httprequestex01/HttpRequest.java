@@ -46,12 +46,46 @@ public class HttpRequest {
         this.urlString = urlString;
     }
 
-    public void sendRequest(String message) {
+    public void sendGetRequest(String message) {
         this.message = message;
-        thread.start();
+        getThread.start();
     }
 
-    private Thread thread = new Thread() {
+    private Thread getThread = new Thread() {
+        @Override
+        public void run() {
+            HttpClient httpClient = new DefaultHttpClient();
+
+            String reqUrlString = urlString;
+            String reqMessage = message;
+            try {
+                URI url = new URI(reqUrlString+'/'+reqMessage);
+                HttpGet httpGet = new HttpGet();
+                httpGet.setURI(url);
+
+                HttpResponse response = httpClient.execute(httpGet);
+                String responseString = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
+
+                Log.d(TAG, responseString);
+            } catch (URISyntaxException e) {
+                Log.e(TAG, e.getLocalizedMessage());
+                e.printStackTrace();
+            } catch (ClientProtocolException e) {
+                Log.e(TAG, e.getLocalizedMessage());
+                e.printStackTrace();
+            } catch (IOException e) {
+                Log.e(TAG, e.getLocalizedMessage());
+                e.printStackTrace();
+            }
+        }
+    };
+
+    public void sendPostRequest(String message) {
+        this.message = message;
+        postThread.start();
+    }
+
+    private Thread postThread = new Thread() {
         @Override
         public void run() {
             HttpClient httpClient = new DefaultHttpClient();
@@ -64,7 +98,7 @@ public class HttpRequest {
                 httpPost.setURI(url);
 
                 List<BasicNameValuePair> param = new ArrayList<BasicNameValuePair>(1);
-                param.add(new BasicNameValuePair("message",""));
+                param.add(new BasicNameValuePair("message",reqMessage));
 
                 httpPost.setEntity(new UrlEncodedFormEntity(param));
 

@@ -12,10 +12,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         httprequest = new HttpRequest("http://192.168.43.107:8080/message");
-        send();
+        sendPost();
+        sendGet();
     }
 
-    private void send() {
-        httprequest.sendRequest("hi");
+    private void sendPost() {
+        httprequest.sendPostRequest("hi");
+    }
+
+    private void sendGet() {
+        httprequest.sendGetRequest("hi");
     }
 }
