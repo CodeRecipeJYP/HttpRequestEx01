@@ -4,10 +4,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
+    HttpRequest httprequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        httprequest = new HttpRequest("http://192.168.43.107:8080/message");
+        send();
+    }
+
+    private void send() {
+        httprequest.sendRequest("hi");
     }
 }
