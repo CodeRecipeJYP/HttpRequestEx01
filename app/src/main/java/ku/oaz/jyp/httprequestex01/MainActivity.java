@@ -6,6 +6,7 @@ import android.os.Bundle;
 public class MainActivity extends AppCompatActivity {
     HttpRequest httprequest;
     ImageUpload imageupload;
+    TakePicture takepicture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,16 +19,12 @@ public class MainActivity extends AppCompatActivity {
         sendPost("hi");
         sendGet("hi");
 
-        sendImgPost();
+        takepicture = new TakePicture(imageupload);
     }
 
     private void sendPost(String message) {
         httprequest.sendPostRequest(message);
     }
-    private void sendImgPost() {
-        imageupload.sendPostRequest(new byte[1]);
-    }
-
     private void sendGet(String message) {
         httprequest.sendGetRequest(message);
     }

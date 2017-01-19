@@ -11,8 +11,19 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ku.oaz.jyp.httprequestex01.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"/>
+    <SurfaceView
+        android:id="@+id/surface_view"
+        android:layout_gravity="center"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:visibility="visible"/>
+
+
+    <ImageView
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:visibility="invisible"
+        android:id="@+id/image_view" />
+
+
 </RelativeLayout>
