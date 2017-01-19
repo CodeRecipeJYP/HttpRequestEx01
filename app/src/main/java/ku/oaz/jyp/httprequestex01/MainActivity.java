@@ -5,22 +5,30 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
     HttpRequest httprequest;
+    ImageUpload imageupload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        httprequest = new HttpRequest("http://192.168.43.107:8080/message");
-        sendPost();
-        sendGet();
+        String svrURL = "http://yangyinetwork.asuscomm.com:82/";
+        httprequest = new HttpRequest(svrURL+"message");
+        imageupload = new ImageUpload(svrURL+"image");
+        sendPost("hi");
+        sendGet("hi");
+
+        sendImgPost();
     }
 
-    private void sendPost() {
-        httprequest.sendPostRequest("hi");
+    private void sendPost(String message) {
+        httprequest.sendPostRequest(message);
+    }
+    private void sendImgPost() {
+        imageupload.sendPostRequest(new byte[1]);
     }
 
-    private void sendGet() {
-        httprequest.sendGetRequest("hi");
+    private void sendGet(String message) {
+        httprequest.sendGetRequest(message);
     }
 }
